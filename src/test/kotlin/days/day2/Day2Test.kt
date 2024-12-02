@@ -18,10 +18,10 @@ class Day2Test : FunSpec({
         day2.atLeastOneLevelDifference(listOf(1, 2, 3, 5)) shouldBe true
         day2.atLeastOneLevelDifference(listOf(1, 1, 3, 5)) shouldBe false
         day2.atMostThreeLevelDifference(listOf(1, 2, 3, 7)) shouldBe false
-        day2.removeOne(listOf(1, 2, 3, 4)) shouldBe listOf(listOf(2, 3, 4), listOf(1, 3, 4), listOf(1, 2, 4), listOf(1, 2, 3))
+        day2.removeOne(listOf(1, 2, 3)) shouldBe listOf(listOf(2, 3), listOf(1, 3), listOf(1, 2))
     }
 
-    test("Day 2, Part 1"){
+    test("Day 2, Part 1") {
         day2.isSafe(listOf(7, 6, 4, 2, 1)) shouldBe true
         day2.isSafe(listOf(1, 2, 7, 8, 9)) shouldBe false
         day2.isSafe(listOf(9, 7, 6, 2, 1)) shouldBe false
@@ -30,7 +30,7 @@ class Day2Test : FunSpec({
         day2.isSafe(listOf(1, 3, 6, 7, 9)) shouldBe true
     }
 
-    test("Day 2, Part 2"){
+    test("Day 2, Part 2") {
         day2.isSafe2(listOf(7, 6, 4, 2, 1)) shouldBe true
         day2.isSafe2(listOf(1, 2, 7, 8, 9)) shouldBe false
         day2.isSafe2(listOf(9, 7, 6, 2, 1)) shouldBe false
@@ -38,6 +38,4 @@ class Day2Test : FunSpec({
         day2.isSafe2(listOf(8, 6, 4, 4, 1)) shouldBe true
         day2.isSafe2(listOf(1, 3, 6, 7, 9)) shouldBe true
     }
-
-
 })
