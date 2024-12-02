@@ -15,12 +15,14 @@ class Day2 : Day {
         list: List<Int>,
         compareFunction: (Int, Int) -> Boolean,
     ): Boolean =
-        list.subList(
-            0,
-            list.size - 1,
-        ).mapIndexed { index, i -> compareFunction(i, list[index + 1]) }.all {
-            it
-        }
+        runCatching {
+            list.subList(
+                0,
+                list.size - 1,
+            ).mapIndexed { index, i -> compareFunction(i, list[index + 1]) }.all {
+                it
+            }
+        }.getOrDefault(false) // if the list is empty, return false
 
     fun isAscending(list: List<Int>): Boolean = allInOrder(list) { i, i2 -> i < i2 }
 
@@ -39,8 +41,7 @@ class Day2 : Day {
             ) || isDescending(list)
         ) && atLeastOneLevelDifference(list) && atMostThreeLevelDifference(list)
 
-    fun isSafe2(list: List<Int>): Boolean =
-        isSafe(list) || (removeOne(list).any(::isSafe))
+    fun isSafe2(list: List<Int>): Boolean = isSafe(list) || (removeOne(list).any(::isSafe))
 
     override val day: Int = 2
 
