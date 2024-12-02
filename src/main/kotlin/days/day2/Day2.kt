@@ -40,13 +40,7 @@ class Day2 : Day {
         ) && atLeastOneLevelDifference(list) && atMostThreeLevelDifference(list)
 
     fun isSafe2(list: List<Int>): Boolean =
-        (
-            (
-                isAscending(
-                    list,
-                ) || isDescending(list)
-            ) && atLeastOneLevelDifference(list) && atMostThreeLevelDifference(list)
-        ) || (removeOne(list).any(::isSafe))
+        isSafe(list) || (removeOne(list).any(::isSafe))
 
     override val day: Int = 2
 
