@@ -11,28 +11,15 @@ class Day2 : Day {
                     .map(String::toInt)
             }
 
-    private fun allInOrder(
-        list: List<Int>,
-        compareFunction: (Int, Int) -> Boolean,
-    ): Boolean =
-        runCatching {
-            list.subList(
-                0,
-                list.size - 1,
-            ).mapIndexed { index, i -> compareFunction(i, list[index + 1]) }.all {
-                it
-            }
-        }.getOrDefault(false) // if the list is empty, return false
+    fun isAscending(list: List<Int>): Boolean = list.zipWithNext().all { (i, i2) -> i < i2 }
 
-    fun isAscending(list: List<Int>): Boolean = allInOrder(list) { i, i2 -> i < i2 }
+    fun isDescending(list: List<Int>): Boolean = list.zipWithNext().all { (i, i2) -> i > i2 }
 
-    fun isDescending(list: List<Int>): Boolean = allInOrder(list) { i, i2 -> i > i2 }
+    fun atLeastOneLevelDifference(list: List<Int>): Boolean = list.zipWithNext().all { (i, i2) -> abs(i - i2) >= 1 }
 
-    fun atLeastOneLevelDifference(list: List<Int>): Boolean = allInOrder(list) { i, i2 -> abs(i - i2) >= 1 }
+    fun atMostThreeLevelDifference(list: List<Int>): Boolean = list.zipWithNext().all { (i, i2) -> abs(i - i2) <= 3 }
 
-    fun atMostThreeLevelDifference(list: List<Int>): Boolean = allInOrder(list) { i, i2 -> abs(i - i2) <= 3 }
-
-    fun removeOne(list: List<Int>): List<List<Int>> = List(list.size) { index -> list.filterIndexed { index2, i2 -> index != index2 } }
+    fun sequenceOfListsRemovingOneElement(list: List<Int>): Sequence<List<Int>> = list.asSequence().mapIndexed() { index, _ -> list.filterIndexed { index2, _ -> index != index2 } }
 
     fun isSafe(list: List<Int>): Boolean =
         (
@@ -41,7 +28,7 @@ class Day2 : Day {
             ) || isDescending(list)
         ) && atLeastOneLevelDifference(list) && atMostThreeLevelDifference(list)
 
-    fun isSafe2(list: List<Int>): Boolean = isSafe(list) || (removeOne(list).any(::isSafe))
+    fun isSafe2(list: List<Int>): Boolean = isSafe(list) || (sequenceOfListsRemovingOneElement(list).any(::isSafe))
 
     override val day: Int = 2
 

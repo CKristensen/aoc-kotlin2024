@@ -18,7 +18,7 @@ class Day2Test : FunSpec({
         day2.atLeastOneLevelDifference(listOf(1, 2, 3, 5)) shouldBe true
         day2.atLeastOneLevelDifference(listOf(1, 1, 3, 5)) shouldBe false
         day2.atMostThreeLevelDifference(listOf(1, 2, 3, 7)) shouldBe false
-        day2.removeOne(listOf(1, 2, 3)) shouldBe listOf(listOf(2, 3), listOf(1, 3), listOf(1, 2))
+        day2.sequenceOfListsRemovingOneElement(listOf(1, 2, 3)).toList() shouldBe listOf(listOf(2, 3), listOf(1, 3), listOf(1, 2))
     }
 
     test("Day 2, Part 1") {
