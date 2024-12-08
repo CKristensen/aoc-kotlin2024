@@ -19,7 +19,8 @@ class Day2 : Day {
 
     fun atMostThreeLevelDifference(list: List<Int>): Boolean = list.zipWithNext().all { (i, i2) -> abs(i - i2) <= 3 }
 
-    fun sequenceOfListsRemovingOneElement(list: List<Int>): Sequence<List<Int>> = list.asSequence().mapIndexed() { index, _ -> list.filterIndexed { index2, _ -> index != index2 } }
+    fun sequenceOfListsRemovingOneElement(list: List<Int>): Sequence<List<Int>> =
+        list.asSequence().mapIndexed { index, _ -> list.filterIndexed { index2, _ -> index != index2 } }
 
     fun isSafe(list: List<Int>): Boolean =
         (

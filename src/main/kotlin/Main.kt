@@ -1,7 +1,7 @@
 package org.example
 
 import org.example.days.Day
-import org.example.days.day1.Day1
-import org.example.days.day2.Day2
+import org.example.days.day8.Day8
 
-fun main() = listOf(Day1(), Day2()).forEach(Day::displayDay)
+fun main() = listOf(Day8()).forEach(Day::displayDay)
+

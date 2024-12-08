@@ -1,4 +1,4 @@
-package days.day2
+package days.day
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
