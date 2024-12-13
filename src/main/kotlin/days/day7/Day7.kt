@@ -2,20 +2,28 @@ package org.example.days.day7
 
 import org.example.days.Day
 
-class Day7: Day {
+class Day7 : Day {
     override val day: Int = 7
 
     data class Calibration(
         val result: Long,
-        val input: List<Long>
+        val input: List<Long>,
     )
 
     enum class Operation {
-        ADD, MULTIPLY, CONCATENATE
+        ADD,
+        MULTIPLY,
+        CONCATENATE,
     }
 
     fun generateOperations1(): List<List<Operation>> = listOf(listOf(Operation.ADD), listOf(Operation.MULTIPLY))
-    fun generateOperations2(): List<List<Operation>> = listOf(listOf(Operation.ADD), listOf(Operation.MULTIPLY), listOf(Operation.CONCATENATE))
+
+    fun generateOperations2(): List<List<Operation>> =
+        listOf(
+            listOf(Operation.ADD),
+            listOf(Operation.MULTIPLY),
+            listOf(Operation.CONCATENATE),
+        )
 
     fun generateOperationsN1(n: Int): List<List<Operation>> {
         if (n == 1) return generateOperations1()
@@ -29,7 +37,6 @@ class Day7: Day {
         return result
     }
 
-
     fun generateOperationsN2(n: Int): List<List<Operation>> {
         if (n == 1) return generateOperations2()
         val previous = generateOperationsN2(n - 1)
@@ -41,13 +48,22 @@ class Day7: Day {
         }
         return result
     }
-    fun doOperation(op: Operation, a: Long, b: Long): Long = when (op) {
-        Operation.ADD -> a + b
-        Operation.MULTIPLY -> a * b
-        Operation.CONCATENATE -> "$a$b".toLong()
-    }
 
-    fun doOperations(ops: List<Operation>, input: List<Long>): Long {
+    fun doOperation(
+        op: Operation,
+        a: Long,
+        b: Long,
+    ): Long =
+        when (op) {
+            Operation.ADD -> a + b
+            Operation.MULTIPLY -> a * b
+            Operation.CONCATENATE -> "$a$b".toLong()
+        }
+
+    fun doOperations(
+        ops: List<Operation>,
+        input: List<Long>,
+    ): Long {
         var result = input[0]
         for (i in 1 until input.size) {
             result = doOperation(ops[i - 1], result, input[i])
@@ -55,15 +71,18 @@ class Day7: Day {
         return result
     }
 
-    fun calibrationPossible(calibration: Calibration, generate: (Int) -> List<List<Operation>>): Boolean {
+    fun calibrationPossible(
+        calibration: Calibration,
+        generate: (Int) -> List<List<Operation>>,
+    ): Boolean {
         return generate(calibration.input.size)
             .map { doOperations(it, calibration.input) }
-            .any{ it == calibration.result }
+            .any { it == calibration.result }
     }
 
     fun generateCalibrations(): List<Calibration> {
         val text = getFileText()
-        //val text = """
+        // val text = """
         //    190: 10 19
         //    3267: 81 40 27
         //    83: 17 5
@@ -73,7 +92,7 @@ class Day7: Day {
         //    192: 17 8 14
         //    21037: 9 7 18 13
         //    292: 11 6 16 20
-        //""".trimIndent()
+        // """.trimIndent()
         return text.lines().map {
             val parts = it.split(": ")
             val result = parts[0].toLong()
@@ -83,10 +102,10 @@ class Day7: Day {
     }
 
     override fun solvePart1(): Long {
-        return generateCalibrations().filter { calibrationPossible(it){ n -> generateOperationsN1(n) } }.sumOf { it.result }
-    }
-    override fun solvePart2(): Long {
-        return generateCalibrations().filter {calibrationPossible(it){ n -> generateOperationsN2(n) } }.sumOf { it.result }
+        return generateCalibrations().filter { calibrationPossible(it) { n -> generateOperationsN1(n) } }.sumOf { it.result }
     }
 
+    override fun solvePart2(): Long {
+        return generateCalibrations().filter { calibrationPossible(it) { n -> generateOperationsN2(n) } }.sumOf { it.result }
+    }
 }
