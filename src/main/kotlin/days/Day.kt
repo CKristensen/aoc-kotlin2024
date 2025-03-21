@@ -14,9 +14,9 @@ interface Day {
     fun displayDay() {
         println("================")
         println("Day$day")
-        print("Part 1: ")
+        println("Part 1: ")
         solvePart1().let(::println)
-        print("Part 2: ")
+        println("Part 2: ")
         solvePart2().let(::println)
         println("================")
     }

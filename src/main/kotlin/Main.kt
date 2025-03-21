@@ -1,6 +1,6 @@
 package org.example
 
 import org.example.days.Day
-import org.example.days.day13.Day13
+import org.example.days.day15.Day15
 
-fun main() = listOf(Day13()).forEach(Day::displayDay)
+fun main() = listOf(Day15()).forEach(Day::displayDay)
